@@ -1,6 +1,8 @@
 const express =require('express')
 const body_parser = require('body-parser')
 
+const CityRepository = require('./repository/city-repository')
+
 const {PORT} = require('./Config/Server')
 const bodyParser = require('body-parser')
 const setupAndStartServer = async () =>{
@@ -11,9 +13,13 @@ const setupAndStartServer = async () =>{
     app.use(body_parser.json());
     app.use(body_parser.urlencoded({extended:true}));
 
-    app.listen(PORT,()=>{
+    app.listen(PORT,async ()=>{
         console.log(`Server Started at ${PORT}`);
+        const entry = new CityRepository();
+        entry.deleteCity(1);
     })
+
+    
 }
 
 setupAndStartServer();
